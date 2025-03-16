@@ -38,7 +38,7 @@ RAFDB_AUGMENTED_DEMOGRAPHICS_PATH = os.path.join(RAFDB_AUGMENTED_DIR, 'augmented
 
 # Model paths
 BASE_MODEL_PATH = 'resources/models/baseline-ferplus-model.h5'
-DYNAMIC_MODEL_PATH = 'resources/models/dynamic_weighting_finetuned_model.h5'
+DYNAMIC_MODEL_PATH = 'resources/models/dynamic-weighting-finetuned-model.h5'
 CHECKPOINT_DIR = os.path.join(RESULTS_DIR, 'checkpoints')
 os.makedirs(CHECKPOINT_DIR, exist_ok=True)
 

@@ -91,13 +91,24 @@ def analyze_model(model_path, model_name, test_labels, X_test, generate_plots=Tr
     model = tf.keras.models.load_model(model_path)
     
     # Check model output shape to handle both 7 and 8 class models
-    num_classes = model.output_shape[1]
+    if isinstance(model.output_shape, list):
+        # Multi-output model, take the first output (assumed to be emotion)
+        num_classes = model.output_shape[0][1]
+    else:
+        # Single output model
+        num_classes = model.output_shape[1]
     
     # Generate predictions
     predictions = model.predict(X_test, verbose=0)
     
-    # Get FER+ predictions (0-based)
-    y_pred_ferplus = np.argmax(predictions, axis=1)
+    # Handle multi-output models
+    if isinstance(predictions, (list, tuple)):
+        # Assume the first element is the emotion predictions
+        emotion_predictions = predictions[0]
+        y_pred_ferplus = np.argmax(emotion_predictions, axis=1)
+    else:
+        # Single output model (original behavior)
+        y_pred_ferplus = np.argmax(predictions, axis=1)
     
     # Get true RAF-DB labels
     y_true = test_labels['label'].values
@@ -468,8 +479,14 @@ def compare_models(models_config, test_labels, X_test, generate_plots=True, show
         print(f"  - Generating predictions...")
         predictions = model.predict(X_test, verbose=0)
         
-        # Get FER+ predictions (0-based)
-        y_pred_ferplus = np.argmax(predictions, axis=1)
+        # Handle multi-output models
+        if isinstance(predictions, (list, tuple)):
+            # Assume the first element is the emotion predictions
+            emotion_predictions = predictions[0]
+            y_pred_ferplus = np.argmax(emotion_predictions, axis=1)
+        else:
+            # Single output model (original behavior)
+            y_pred_ferplus = np.argmax(predictions, axis=1)
         
         # Get true RAF-DB labels
         y_true = test_labels['label'].values
@@ -490,12 +507,13 @@ def compare_models(models_config, test_labels, X_test, generate_plots=True, show
         )
         
         # Store results
+        num_classes = model.output_shape[1] if not isinstance(model.output_shape, list) else model.output_shape[0][1]
         results[model_name] = {
             "model_name": model_name,
             "overall": overall_metrics,
             "emotion_accuracies": emotion_accuracies,
             "demographic": [gender_metrics, age_metrics],
-            "num_classes": model.output_shape[1]
+            "num_classes": num_classes
         }
     
     # Visualize the results - separate generate_plots and show_plots logic
@@ -570,18 +588,16 @@ def main():
     X_test, processed_files = load_and_preprocess_images(test_labels, test_base_path)
     print(f"Loaded {len(X_test)} test images")
     
-    # 4. Configure models to analyzeclear
+    # 4. Configure models to analyze
     models_config = {
         # Add models to include on the comparative analysis
-        # "Baseline": os.path.join(MODELS_DIR, 'baseline-ferplus-model.h5'),
-        # "Emotion-Based Augmentation (without layer freezing)": os.path.join(MODELS_DIR, 'emotion_augmentation_finetuned_model (without layer freezing).h5'),
-        # "Demographic-Based Augmentation (without layer freezing)": os.path.join(MODELS_DIR, 'demographic_augmentation_finetuned_model (without layer freezing).h5'),
-        # "Emotion-Based Augmentation": os.path.join(MODELS_DIR, 'emotion_augmentation_finetuned_model.h5'),
-        # "Demographic-Based Augmentation": os.path.join(MODELS_DIR, 'demographic_augmentation_finetuned_model.h5'),
-        
-
-        "Multi-Task Learning (Fairness-aware)": os.path.join(MODELS_DIR, 'multi_task_model.h5'),
-
+        "Baseline": os.path.join(MODELS_DIR, 'baseline-ferplus-model.h5'),
+        "Emotion-Based Augmentation": os.path.join(MODELS_DIR, 'emotion-augmentation-finetuned-model.h5'),
+        "Emotion-Based Augmentation with Layer Freezing": os.path.join(MODELS_DIR, 'emotion-augmentation-finetuned-model-w-layer-freezing.h5'),
+        "Demographic-Based Augmentation": os.path.join(MODELS_DIR, 'demographic-augmentation-finetuned-model.h5'),
+        "Demographic-Based Augmentation with Layer Freezing": os.path.join(MODELS_DIR, 'demographic-augmentation-finetuned-model-w-layer-freezing.h5'),
+        # "Multi-Task Learning (Fairness-aware)": os.path.join(MODELS_DIR, 'multitask_finetuned_model.h5'),
+        # "Dynamic Cross-Dataset Weighting (Dynamic Task Weighting)": os.path.join(MODELS_DIR, 'dynamic_weighting_finetuned_model.h5'),
 
 
         # You can add more models here

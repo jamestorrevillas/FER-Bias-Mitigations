@@ -38,8 +38,8 @@ RAFDB_AUGMENTED_DEMOGRAPHICS_PATH = os.path.join(RAFDB_AUGMENTED_DIR, 'augmented
 
 # Model paths
 BASE_MODEL_PATH = 'resources/models/baseline-ferplus-model.h5'
-EMOTION_MODEL_OUTPUT_PATH = 'resources/models/emotion_augmentation_finetuned_model.h5'
-DEMOGRAPHIC_MODEL_OUTPUT_PATH = 'resources/models/demographic_augmentation_finetuned_model.h5'
+EMOTION_MODEL_OUTPUT_PATH = 'resources/models/emotion-augmentation-finetuned-model.h5'
+DEMOGRAPHIC_MODEL_OUTPUT_PATH = 'resources/models/demographic-augmentation-finetuned-model.h5'
 
 #-----------------------------------------------------
 # MODEL PARAMETERS
