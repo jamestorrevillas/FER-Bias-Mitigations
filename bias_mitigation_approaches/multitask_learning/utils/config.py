@@ -69,7 +69,7 @@ MAX_FAIRNESS_IMBALANCE = 0.2   # Maximum acceptable difference between group acc
 # Training configuration
 BATCH_SIZE = 64  # Smaller batch size for multi-task learning
 VALIDATION_SPLIT = 0.15
-MAX_EPOCHS = 1  # Increased for better convergence with early stopping
+MAX_EPOCHS = 1000  # Increased for better convergence with early stopping
 
 # Learning rate settings
 INITIAL_LR_PHASE1 = 5e-4  # Learning rate for first phase (training new heads)
