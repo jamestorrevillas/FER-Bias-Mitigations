@@ -60,7 +60,7 @@ REGULARIZATION_RATE = 0.01  # Same as original
 # Fine-tuning configuration
 BATCH_SIZE = 64  # Smaller than original for more frequent feedback
 VALIDATION_SPLIT = 0.15
-MAX_FINE_TUNING_EPOCHS = 30
+MAX_FINE_TUNING_EPOCHS = 1
 
 # Learning rate settings
 INITIAL_LEARNING_RATE = 1e-4  # Lower than original for fine-tuning
@@ -78,6 +78,18 @@ MAX_WEIGHT_MULTIPLIER = 5.0
 WEIGHT_DECAY_FACTOR = 0.95    # Gradually reduce extreme weights
 FAIRNESS_IMPROVEMENT_THRESHOLD = 0.01  # Minimum improvement to continue
 MIN_GROUP_SAMPLES = 10  # Minimum samples needed for reliable evaluation
+
+# Fairness-based early stopping
+FAIRNESS_IMPROVEMENT_THRESHOLD = 0.005  # Minimum fairness improvement to reset patience
+FAIRNESS_PATIENCE = 8  # Number of epochs with no fairness improvement before stopping
+
+# Intersection-based weight adjustment
+INTERSECTION_WEIGHT_MULTIPLIER = 2.0  # Base multiplier for intersectional weights
+MAX_INTERSECTION_MULTIPLIER = 4.0  # Maximum intersectional weight multiplier
+
+# Data pipeline parameters
+SHUFFLE_BUFFER_SIZE = 10000  # Buffer size for shuffling
+USE_EFFICIENT_DATASET = True  # Whether to use tf.data optimizations
 
 #-----------------------------------------------------
 # MAPPINGS AND LABELS

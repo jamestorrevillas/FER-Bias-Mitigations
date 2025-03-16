@@ -254,3 +254,177 @@ def create_weighted_dataset(images, labels, sample_weights=None):
     ))
     
     return dataset
+
+def create_efficient_dataset(images, labels, weights=None, batch_size=64, shuffle_buffer=10000):
+    """
+    Create a memory-efficient TensorFlow dataset with prefetching and caching
+    
+    Args:
+        images: Image data
+        labels: Labels
+        weights: Optional sample weights
+        batch_size: Batch size for training
+        shuffle_buffer: Buffer size for shuffling
+        
+    Returns:
+        TensorFlow dataset ready for training
+    """
+    import tensorflow as tf
+    
+    # Convert labels to one-hot encoding
+    one_hot_labels = tf.keras.utils.to_categorical(labels, config.NUM_CLASSES)
+    
+    # Create dataset
+    if weights is not None:
+        dataset = tf.data.Dataset.from_tensor_slices((images, one_hot_labels, weights))
+    else:
+        dataset = tf.data.Dataset.from_tensor_slices((images, one_hot_labels))
+    
+    # Apply performance optimizations
+    dataset = dataset.cache()
+    dataset = dataset.shuffle(buffer_size=min(len(images), shuffle_buffer))
+    dataset = dataset.batch(batch_size)
+    dataset = dataset.prefetch(tf.data.AUTOTUNE)
+    
+    return dataset
+
+def extract_fer_demographic_proxy(images, labels, demographic_info_source=None):
+    """
+    Create proxy demographic information for FER+ dataset based on patterns
+    observed in RAF-DB (for intersectional weight adjustments)
+    
+    Args:
+        images: FER+ images
+        labels: FER+ labels
+        demographic_info_source: Optional source demographic info from RAF-DB
+        
+    Returns:
+        List of demographic info dictionaries
+    """
+    # Create initial demographic proxies (estimated values)
+    demographic_info = []
+    
+    # Use fixed distributions based on typical patterns
+    gender_priors = {
+        0: 0.5,  # neutral: 50% male
+        1: 0.4,  # happiness: 40% male
+        2: 0.5,  # surprise: 50% male
+        3: 0.45, # sadness: 45% male
+        4: 0.6,  # anger: 60% male
+        5: 0.5,  # disgust: 50% male
+        6: 0.45, # fear: 45% male
+        7: 0.55  # contempt: 55% male
+    }
+    
+    age_priors = {
+        0: [0.05, 0.15, 0.5, 0.25, 0.05],  # neutral
+        1: [0.1, 0.2, 0.45, 0.2, 0.05],    # happiness
+        2: [0.05, 0.2, 0.5, 0.2, 0.05],    # surprise
+        3: [0.05, 0.15, 0.45, 0.3, 0.05],  # sadness
+        4: [0.05, 0.1, 0.5, 0.3, 0.05],    # anger
+        5: [0.05, 0.1, 0.5, 0.3, 0.05],    # disgust
+        6: [0.05, 0.2, 0.5, 0.2, 0.05],    # fear
+        7: [0.05, 0.1, 0.5, 0.3, 0.05]     # contempt
+    }
+    
+    # If we have demographic source data, compute more accurate estimates
+    if demographic_info_source is not None:
+        try:
+            # Extract demographic information from source
+            source_labels = []
+            source_genders = []
+            source_ages = []
+            
+            # First collect RAF-DB labels and demographics
+            for info in demographic_info_source:
+                if 'gender' in info and 'age' in info:
+                    source_genders.append(info['gender'])
+                    source_ages.append(info['age'])
+            
+            # Since source_labels needs demographic info and RAF-DB labels, 
+            # we need to make sure they're properly aligned
+            computed_priors = False
+            
+            # Skip this refinement if we don't have enough data
+            if len(source_genders) > 100:
+                # Compute gender priors per emotion
+                gender_counts = {}
+                age_counts = {}
+                
+                # Count demographic info by RAF-DB emotion categories
+                for i, info in enumerate(demographic_info_source):
+                    if i >= len(rafdb_labels):
+                        break
+                        
+                    raf_label = rafdb_labels[i]
+                    
+                    # Initialize counters if needed
+                    if raf_label not in gender_counts:
+                        gender_counts[raf_label] = [0, 0]  # [male_count, female_count]
+                    
+                    if raf_label not in age_counts:
+                        age_counts[raf_label] = [0, 0, 0, 0, 0]  # 5 age groups
+                    
+                    # Add to counters
+                    if 'gender' in info:
+                        gender = info['gender']
+                        if gender in [0, 1]:
+                            gender_counts[raf_label][gender] += 1
+                    
+                    if 'age' in info:
+                        age = info['age']
+                        if 1 <= age <= 5:
+                            age_counts[raf_label][age-1] += 1
+                
+                # Convert to probabilities and map to FER+ labels
+                for raf_label, counts in gender_counts.items():
+                    total = sum(counts)
+                    if total > 0:
+                        male_prob = counts[0] / total
+                        
+                        # Map to corresponding FER+ emotion index
+                        for fer_idx, mapped_raf_idx in config.FERPLUS_TO_RAFDB.items():
+                            if mapped_raf_idx == raf_label:
+                                gender_priors[fer_idx] = male_prob
+                                break
+                
+                for raf_label, counts in age_counts.items():
+                    total = sum(counts)
+                    if total > 0:
+                        age_prob = [count/total for count in counts]
+                        
+                        # Map to corresponding FER+ emotion index
+                        for fer_idx, mapped_raf_idx in config.FERPLUS_TO_RAFDB.items():
+                            if mapped_raf_idx == raf_label:
+                                age_priors[fer_idx] = age_prob
+                                break
+                
+                computed_priors = True
+            
+            if computed_priors:
+                print("Using computed demographic priors from RAF-DB")
+            else:
+                print("Using default demographic priors (not enough RAF-DB data)")
+                
+        except Exception as e:
+            print(f"Warning: Error computing demographic priors: {str(e)}")
+            print("Using default demographic priors")
+    
+    # Generate demographic proxies using priors
+    np.random.seed(42)  # For reproducibility
+    
+    for label in labels:
+        # Determine gender (0: male, 1: female)
+        male_prob = gender_priors.get(label, 0.5)
+        gender = 0 if np.random.random() < male_prob else 1
+        
+        # Determine age (1-5)
+        age_prob = age_priors.get(label, [0.1, 0.2, 0.4, 0.2, 0.1])
+        age = np.random.choice([1, 2, 3, 4, 5], p=age_prob)
+        
+        demographic_info.append({
+            'gender': gender,
+            'age': age
+        })
+    
+    return demographic_info

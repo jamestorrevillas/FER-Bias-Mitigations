@@ -42,6 +42,7 @@ else:
 # Create output directories
 os.makedirs(config.PLOTS_DIR, exist_ok=True)
 os.makedirs(config.RESULTS_DIR, exist_ok=True)
+os.makedirs(config.LOGS_DIR, exist_ok=True)
 
 def load_pretrained_model(model_path=config.BASE_MODEL_PATH):
     """Load pre-trained FER+ model"""
@@ -55,30 +56,44 @@ def load_pretrained_model(model_path=config.BASE_MODEL_PATH):
     
     return model
 
-def setup_datasets(train_images, train_labels, val_images, val_labels, rafdb_images, rafdb_labels, rafdb_demographic_info):
+def setup_datasets(train_images, train_labels, val_images, val_labels, 
+                   rafdb_val_images, rafdb_val_labels, rafdb_val_demographic_info,
+                   rafdb_test_images, rafdb_test_labels, rafdb_test_demographic_info,
+                   train_demographic_info=None):
     """Setup datasets for training and evaluation"""
     print("\nPreparing datasets...")
     
     # Create validation dataset
-    val_labels_onehot = tf.keras.utils.to_categorical(val_labels, config.NUM_CLASSES)
-    validation_dataset = tf.data.Dataset.from_tensor_slices((val_images, val_labels_onehot))
-    validation_dataset = validation_dataset.batch(config.BATCH_SIZE)
+    if config.USE_EFFICIENT_DATASET:
+        validation_dataset = data_loader.create_efficient_dataset(
+            val_images, val_labels, batch_size=config.BATCH_SIZE
+        )
+    else:
+        val_labels_onehot = tf.keras.utils.to_categorical(val_labels, config.NUM_CLASSES)
+        validation_dataset = tf.data.Dataset.from_tensor_slices((val_images, val_labels_onehot))
+        validation_dataset = validation_dataset.batch(config.BATCH_SIZE)
     
-    # Create RAF-DB evaluation dataset
-    rafdb_dataset = (rafdb_images, rafdb_labels, rafdb_demographic_info)
+    # Create RAF-DB datasets for validation and testing
+    rafdb_val_dataset = (rafdb_val_images, rafdb_val_labels, rafdb_val_demographic_info)
+    rafdb_test_dataset = (rafdb_test_images, rafdb_test_labels, rafdb_test_demographic_info)
     
     print(f"Training set: {len(train_images)} samples")
     print(f"Validation set: {len(val_images)} samples")
-    print(f"RAF-DB evaluation set: {len(rafdb_images)} samples")
+    print(f"RAF-DB validation set: {len(rafdb_val_images)} samples")
+    print(f"RAF-DB test set: {len(rafdb_test_images)} samples")
     
-    return train_images, train_labels, validation_dataset, rafdb_dataset
+    return train_images, train_labels, validation_dataset, rafdb_val_dataset, rafdb_test_dataset, train_demographic_info
 
-def dynamic_fine_tuning(model, train_images, train_labels, validation_dataset, rafdb_dataset):
+def dynamic_fine_tuning(model, train_images, train_labels, validation_dataset, 
+                        rafdb_val_dataset, rafdb_test_dataset, train_demographic_info=None):
     """Fine-tune model with dynamic cross-dataset weight adjustment"""
     print("\nStarting dynamic fine-tuning...")
     
-    # Unpack RAF-DB dataset
-    rafdb_images, rafdb_labels, rafdb_demographic_info = rafdb_dataset
+    # Unpack RAF-DB validation dataset
+    rafdb_val_images, rafdb_val_labels, rafdb_val_demographic_info = rafdb_val_dataset
+    
+    # Unpack RAF-DB test dataset (only used for final evaluation)
+    rafdb_test_images, rafdb_test_labels, rafdb_test_demographic_info = rafdb_test_dataset
     
     # Compile the model
     model.compile(
@@ -87,10 +102,11 @@ def dynamic_fine_tuning(model, train_images, train_labels, validation_dataset, r
         metrics=['accuracy']
     )
     
-    # Initialize weight scheduler
+    # Initialize weight scheduler with demographic info if available
     weight_scheduler_instance = weight_scheduler.DynamicWeightScheduler(
         initial_weights=np.ones(len(train_labels)),
-        emotion_labels=train_labels
+        emotion_labels=train_labels,
+        demographic_info=train_demographic_info
     )
     
     # Setup tracking variables
@@ -112,7 +128,7 @@ def dynamic_fine_tuning(model, train_images, train_labels, validation_dataset, r
     # Initial fairness evaluation
     print("\nPerforming initial fairness evaluation...")
     fairness_metrics = metrics.evaluate_model_fairness(
-        model, rafdb_images, rafdb_labels, rafdb_demographic_info
+        model, rafdb_val_images, rafdb_val_labels, rafdb_val_demographic_info
     )
     
     # Log initial fairness metrics
@@ -143,11 +159,20 @@ def dynamic_fine_tuning(model, train_images, train_labels, validation_dataset, r
         current_weights = weight_scheduler_instance.update_weights(fairness_metrics)
         
         # Create weighted dataset for this epoch
-        train_labels_onehot = tf.keras.utils.to_categorical(train_labels, config.NUM_CLASSES)
-        train_dataset = tf.data.Dataset.from_tensor_slices(
-            (train_images, train_labels_onehot, current_weights)
-        )
-        train_dataset = train_dataset.shuffle(len(train_images)).batch(config.BATCH_SIZE)
+        if config.USE_EFFICIENT_DATASET:
+            train_dataset = data_loader.create_efficient_dataset(
+                train_images, 
+                train_labels,
+                weights=current_weights,
+                batch_size=config.BATCH_SIZE,
+                shuffle_buffer=config.SHUFFLE_BUFFER_SIZE
+            )
+        else:
+            train_labels_onehot = tf.keras.utils.to_categorical(train_labels, config.NUM_CLASSES)
+            train_dataset = tf.data.Dataset.from_tensor_slices(
+                (train_images, train_labels_onehot, current_weights)
+            )
+            train_dataset = train_dataset.shuffle(len(train_images)).batch(config.BATCH_SIZE)
         
         # Train for one epoch
         history = model.fit(
@@ -157,9 +182,9 @@ def dynamic_fine_tuning(model, train_images, train_labels, validation_dataset, r
             verbose=1
         )
         
-        # Evaluate fairness on RAF-DB dataset
+        # Evaluate fairness on RAF-DB validation dataset
         fairness_metrics = metrics.evaluate_model_fairness(
-            model, rafdb_images, rafdb_labels, rafdb_demographic_info
+            model, rafdb_val_images, rafdb_val_labels, rafdb_val_demographic_info
         )
         
         # Track metrics
@@ -195,14 +220,19 @@ def dynamic_fine_tuning(model, train_images, train_labels, validation_dataset, r
         with open(log_file, 'a') as f:
             f.write(log_message + "\n")
         
-        # Check for improvement in validation loss
-        if val_loss < best_val_loss:
-            best_val_loss = val_loss
+        # Calculate combined fairness score
+        combined_fairness = (gender_fairness + age_fairness + emotion_fairness) / 3
+        fairness_improvement = combined_fairness - best_fairness_score
+        
+        # Check for improvement in fairness (primary criterion)
+        if fairness_improvement > config.FAIRNESS_IMPROVEMENT_THRESHOLD:
+            best_fairness_score = combined_fairness
             patience_counter = 0
             
             # Save best model
             model.save(config.DYNAMIC_MODEL_PATH)
-            print(f"New best model saved with val_loss: {best_val_loss:.4f}")
+            print(f"New best model saved with fairness score: {best_fairness_score:.4f}")
+            print(f"Gender: {gender_fairness:.4f}, Age: {age_fairness:.4f}, Emotion: {emotion_fairness:.4f}")
             
             # Save metrics
             with open(os.path.join(config.RESULTS_DIR, 'best_metrics.json'), 'w') as f:
@@ -212,8 +242,18 @@ def dynamic_fine_tuning(model, train_images, train_labels, validation_dataset, r
                     'gender_fairness': float(gender_fairness),
                     'age_fairness': float(age_fairness),
                     'emotion_fairness': float(emotion_fairness),
-                    'overall_accuracy': float(overall_accuracy)
+                    'overall_accuracy': float(overall_accuracy),
+                    'combined_fairness': float(combined_fairness)
                 }, f, indent=4)
+        # Check for improvement in validation loss (secondary criterion)
+        elif val_loss < best_val_loss:
+            best_val_loss = val_loss
+            print(f"Validation loss improved to {best_val_loss:.4f}, but fairness did not improve sufficiently")
+            # Don't reset patience counter for val_loss improvements
+            
+            # Save checkpoint for best validation loss
+            loss_checkpoint_path = os.path.join(config.CHECKPOINT_DIR, "best_val_loss_model.h5")
+            model.save(loss_checkpoint_path)
         else:
             patience_counter += 1
         
@@ -224,8 +264,8 @@ def dynamic_fine_tuning(model, train_images, train_labels, validation_dataset, r
             print(f"Checkpoint saved at epoch {epoch+1}")
         
         # Check if we should stop training
-        if patience_counter >= config.EARLY_STOPPING_PATIENCE:
-            print(f"Early stopping triggered after {epoch+1} epochs")
+        if patience_counter >= config.FAIRNESS_PATIENCE:
+            print(f"Early stopping triggered after {epoch+1} epochs with no fairness improvement")
             break
     
     # Training complete
@@ -269,10 +309,27 @@ def dynamic_fine_tuning(model, train_images, train_labels, validation_dataset, r
     # Load best model for final evaluation
     best_model = tf.keras.models.load_model(config.DYNAMIC_MODEL_PATH)
     
-    # Final fairness evaluation
+    # Final fairness evaluation on test set
+    print("\nPerforming final evaluation on RAF-DB test set...")
     final_metrics = metrics.evaluate_model_fairness(
-        best_model, rafdb_images, rafdb_labels, rafdb_demographic_info
+        best_model, rafdb_test_images, rafdb_test_labels, rafdb_test_demographic_info
     )
+    
+    # Print and save final test set results
+    print("\nFinal Test Set Results:")
+    print(f"Gender Fairness: {final_metrics['gender_metrics']['fairness_score']:.4f}")
+    print(f"Age Fairness: {final_metrics['age_metrics']['fairness_score']:.4f}")
+    print(f"Emotion Fairness: {final_metrics['emotion_fairness']:.4f}")
+    print(f"Overall Accuracy: {final_metrics['overall_accuracy']:.4f}")
+    
+    # Save final test metrics
+    with open(os.path.join(config.RESULTS_DIR, 'final_test_metrics.json'), 'w') as f:
+        json.dump({
+            'gender_fairness': float(final_metrics['gender_metrics']['fairness_score']),
+            'age_fairness': float(final_metrics['age_metrics']['fairness_score']),
+            'emotion_fairness': float(final_metrics['emotion_fairness']),
+            'overall_accuracy': float(final_metrics['overall_accuracy'])
+        }, f, indent=4)
     
     # Create additional visualization for final performance
     visualization.plot_emotion_accuracies(
@@ -286,7 +343,7 @@ def dynamic_fine_tuning(model, train_images, train_labels, validation_dataset, r
         os.path.join(config.PLOTS_DIR, 'intersectional_performance.png')
     )
     
-    return best_model, fairness_history, weight_history, metrics_history
+    return best_model, fairness_history, weight_history, metrics_history, final_metrics
 
 def main():
     # Print configuration information
@@ -298,7 +355,8 @@ def main():
     print(f"Batch size: {config.BATCH_SIZE}")
     print(f"Max epochs: {config.MAX_FINE_TUNING_EPOCHS}")
     print(f"Initial learning rate: {config.INITIAL_LEARNING_RATE}")
-    print(f"Feedback frequency: every {config.FEEDBACK_FREQUENCY} batches")
+    print(f"Feedback frequency: every epoch")
+    print(f"Using efficient dataset: {config.USE_EFFICIENT_DATASET}")
     print("=" * 80)
     
     # 1. Load FER+ dataset (original + augmented for training)
@@ -321,7 +379,20 @@ def main():
         print("Error loading RAF-DB dataset. Exiting.")
         return
     
-    # 3. Combine original and augmented FER+ data
+    # 3. Split RAF-DB test set into validation and test portions
+    print("\nSplitting RAF-DB test set into validation and test portions...")
+    rafdb_val_images, rafdb_test_images, rafdb_val_labels, rafdb_test_labels = train_test_split(
+        rafdb_test_images, rafdb_test_labels, test_size=0.5, random_state=42, stratify=rafdb_test_labels
+    )
+    
+    # Split demographic info accordingly
+    rafdb_val_demographic_info = rafdb_test_demographic_info[:len(rafdb_val_labels)]
+    rafdb_test_demographic_info = rafdb_test_demographic_info[len(rafdb_val_labels):]
+    
+    print(f"RAF-DB validation set: {len(rafdb_val_images)} samples")
+    print(f"RAF-DB test set: {len(rafdb_test_images)} samples")
+    
+    # 4. Combine original and augmented FER+ data
     print("\nCombining original and augmented FER+ data...")
     X_train, y_train = data_loader.prepare_combined_data(
         original_train_images, 
@@ -330,48 +401,70 @@ def main():
         augmented_labels
     )
     
-    # 4. Create train/validation split
+    # 5. Generate demographic proxy information for FER+ dataset
+    # This is used for intersectional weight adjustment
+    print("\nGenerating demographic proxy information for FER+ dataset...")
+    train_demographic_info = data_loader.extract_fer_demographic_proxy(
+        X_train, 
+        y_train,
+        rafdb_train_demographic_info
+    )
+    
+    # 6. Create train/validation split
     print("\nCreating train/validation split...")
-    train_images, val_images, train_labels, val_labels = train_test_split(
-        X_train, y_train,
+    train_images, val_images, train_labels, val_labels, train_indices, val_indices = train_test_split(
+        X_train, y_train, np.arange(len(X_train)),
         test_size=config.VALIDATION_SPLIT,
         random_state=42,
         stratify=y_train
     )
     
-    # 5. Load pre-trained model
+    # Split demographic info according to indices
+    train_demographic_info = [train_demographic_info[i] for i in train_indices]
+    
+    # 7. Load pre-trained model
     model = load_pretrained_model()
     
-    # 6. Setup datasets
-    train_images, train_labels, validation_dataset, rafdb_dataset = setup_datasets(
+    # 8. Setup datasets
+    train_images, train_labels, validation_dataset, rafdb_val_dataset, rafdb_test_dataset, train_demographic_info = setup_datasets(
         train_images, train_labels, val_images, val_labels,
-        rafdb_test_images, rafdb_test_labels, rafdb_test_demographic_info
+        rafdb_val_images, rafdb_val_labels, rafdb_val_demographic_info,
+        rafdb_test_images, rafdb_test_labels, rafdb_test_demographic_info,
+        train_demographic_info
     )
     
-    # 7. Perform dynamic fine-tuning
-    best_model, fairness_history, weight_history, metrics_history = dynamic_fine_tuning(
-        model, train_images, train_labels, validation_dataset, rafdb_dataset
+    # 9. Perform dynamic fine-tuning
+    best_model, fairness_history, weight_history, metrics_history, final_metrics = dynamic_fine_tuning(
+        model, train_images, train_labels, validation_dataset,
+        rafdb_val_dataset, rafdb_test_dataset, train_demographic_info
     )
     
-    # 8. Final evaluation on test set
+    # 10. Final evaluation on FER+ test set
     print("\nEvaluating best model on FER+ test set...")
     test_labels_onehot = tf.keras.utils.to_categorical(test_labels, config.NUM_CLASSES)
     test_loss, test_accuracy = best_model.evaluate(test_images, test_labels_onehot, verbose=1)
     print(f"FER+ Test Loss: {test_loss:.4f}")
     print(f"FER+ Test Accuracy: {test_accuracy:.4f}")
     
-    # 9. Summary of fairness improvements
+    # Save FER+ test results
+    with open(os.path.join(config.RESULTS_DIR, 'ferplus_test_metrics.json'), 'w') as f:
+        json.dump({
+            'test_loss': float(test_loss),
+            'test_accuracy': float(test_accuracy)
+        }, f, indent=4)
+    
+    # 11. Summary of fairness improvements
     initial_gender_fairness = fairness_history['gender_fairness'][0]
-    final_gender_fairness = fairness_history['gender_fairness'][-1]
+    final_gender_fairness = final_metrics['gender_metrics']['fairness_score']
     
     initial_age_fairness = fairness_history['age_fairness'][0]
-    final_age_fairness = fairness_history['age_fairness'][-1]
+    final_age_fairness = final_metrics['age_metrics']['fairness_score']
     
     initial_emotion_fairness = fairness_history['emotion_fairness'][0]
-    final_emotion_fairness = fairness_history['emotion_fairness'][-1]
+    final_emotion_fairness = final_metrics['emotion_fairness']
     
     initial_accuracy = fairness_history['overall_accuracy'][0]
-    final_accuracy = fairness_history['overall_accuracy'][-1]
+    final_accuracy = final_metrics['overall_accuracy']
     
     # Calculate improvements
     gender_improvement = (final_gender_fairness - initial_gender_fairness) * 100
@@ -383,25 +476,35 @@ def main():
     print("\n" + "=" * 80)
     print("FAIRNESS IMPROVEMENT SUMMARY")
     print("=" * 80)
-    print(f"Gender Fairness:   {initial_gender_fairness:.4f} → {final_gender_fairness:.4f} ({gender_improvement:+.2f}%)")
-    print(f"Age Fairness:      {initial_age_fairness:.4f} → {final_age_fairness:.4f} ({age_improvement:+.2f}%)")
-    print(f"Emotion Fairness:  {initial_emotion_fairness:.4f} → {final_emotion_fairness:.4f} ({emotion_improvement:+.2f}%)")
-    print(f"Overall Accuracy:  {initial_accuracy:.4f} → {final_accuracy:.4f} ({accuracy_change:+.2f}%)")
+    print(f"Gender Fairness:   {initial_gender_fairness:.4f} -> {final_gender_fairness:.4f} ({gender_improvement:+.2f}%)")
+    print(f"Age Fairness:      {initial_age_fairness:.4f} -> {final_age_fairness:.4f} ({age_improvement:+.2f}%)")
+    print(f"Emotion Fairness:  {initial_emotion_fairness:.4f} -> {final_emotion_fairness:.4f} ({emotion_improvement:+.2f}%)")
+    print(f"Overall Accuracy:  {initial_accuracy:.4f} -> {final_accuracy:.4f} ({accuracy_change:+.2f}%)")
     print("=" * 80)
-    
+
     # Save summary to file
     with open(os.path.join(config.RESULTS_DIR, 'improvement_summary.txt'), 'w') as f:
         f.write("FAIRNESS IMPROVEMENT SUMMARY\n")
         f.write("=" * 60 + "\n")
-        f.write(f"Gender Fairness:   {initial_gender_fairness:.4f} → {final_gender_fairness:.4f} ({gender_improvement:+.2f}%)\n")
-        f.write(f"Age Fairness:      {initial_age_fairness:.4f} → {final_age_fairness:.4f} ({age_improvement:+.2f}%)\n")
-        f.write(f"Emotion Fairness:  {initial_emotion_fairness:.4f} → {final_emotion_fairness:.4f} ({emotion_improvement:+.2f}%)\n")
-        f.write(f"Overall Accuracy:  {initial_accuracy:.4f} → {final_accuracy:.4f} ({accuracy_change:+.2f}%)\n")
+        f.write(f"Gender Fairness:   {initial_gender_fairness:.4f} -> {final_gender_fairness:.4f} ({gender_improvement:+.2f}%)\n")
+        f.write(f"Age Fairness:      {initial_age_fairness:.4f} -> {final_age_fairness:.4f} ({age_improvement:+.2f}%)\n")
+        f.write(f"Emotion Fairness:  {initial_emotion_fairness:.4f} -> {final_emotion_fairness:.4f} ({emotion_improvement:+.2f}%)\n")
+        f.write(f"Overall Accuracy:  {initial_accuracy:.4f} -> {final_accuracy:.4f} ({accuracy_change:+.2f}%)\n")
         f.write("=" * 60 + "\n")
     
     print(f"\nFine-tuning complete!")
     print(f"Results saved to {config.RESULTS_DIR}")
     print(f"Fine-tuned model saved to {config.DYNAMIC_MODEL_PATH}")
+    
+    # Return the metrics for use in hyperparameter tuning
+    return {
+        'gender_fairness': float(final_gender_fairness),
+        'age_fairness': float(final_age_fairness),
+        'emotion_fairness': float(final_emotion_fairness),
+        'overall_accuracy': float(final_accuracy),
+        'combined_fairness': float((final_gender_fairness + final_age_fairness + final_emotion_fairness) / 3),
+        'ferplus_accuracy': float(test_accuracy)
+    }
 
 if __name__ == "__main__":
     main()
