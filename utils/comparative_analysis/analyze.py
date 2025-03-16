@@ -595,12 +595,11 @@ def main():
         "Emotion-Based Augmentation": os.path.join(MODELS_DIR, 'emotion-augmentation-finetuned-model.h5'),
         "Emotion-Based Augmentation with Layer Freezing": os.path.join(MODELS_DIR, 'emotion-augmentation-finetuned-model-w-layer-freezing.h5'),
         "Demographic-Based Augmentation": os.path.join(MODELS_DIR, 'demographic-augmentation-finetuned-model.h5'),
-        "Demographic-Based Augmentation with Layer Freezing": os.path.join(MODELS_DIR, 'demographic-augmentaticlearon-finetuned-model-w-layer-freezing.h5'),
-        # "Multi-Task Learning (Fairness-aware)": os.path.join(MODELS_DIR, 'multitask_finetuned_model.h5'),
-        "Dynamic Cross-Dataset Weighting (Dynamic Task Weighting)": os.path.join(MODELS_DIR, 'dynamic-weighting-finetuned-model.h5'),
+        "Demographic-Based Augmentation with Layer Freezing": os.path.join(MODELS_DIR, 'demographic-augmentation-finetuned-model-w-layer-freezing.h5'),
+        "Multi-Task Learning (Fairness-aware)": os.path.join(MODELS_DIR, 'multitask-finetuned-model.h5'),
+        # "Dynamic Cross-Dataset Weighting (Dynamic Task Weighting)": os.path.join(MODELS_DIR, 'dynamic-weighting-finetuned-model.h5'),
+        
 
-
-        # You can add more models here
     }
     
     # 5. Compare models
