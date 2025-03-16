@@ -1,1 +1,82 @@
+# .gitignore for FER-BIAS-MITIGATIONS
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.env/
+.venv/
+
+# Data and results
 resources/dataset/
+resources/dataset/**/augmented/
+**/checkpoints/
+**/logs/
+
+# Large datasets
+*.csv
+*.npy
+*.pkl
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+### IDE files ###
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+### OS-specific ###
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+
+### Logs and temporary files ###
+*.log
+log/
+logs/
+tmp/
+temp/
+*.tmp
+
+### Optional: keep certain files with exceptions ###
+# Keep .gitkeep files in empty directories
+!**/.gitkeep
