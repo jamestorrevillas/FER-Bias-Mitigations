@@ -1,0 +1,9 @@
+{
+    "val_loss": 0.38352134823799133,
+    "val_accuracy": 0.8625341057777405,
+    "gender_fairness": 0.944877113196027,
+    "age_fairness": 0.7644273871910466,
+    "emotion_fairness": 0.1871069182389937,
+    "overall_accuracy": 0.6740547588005215,
+    "combined_fairness": 0.6321371395420224
+}

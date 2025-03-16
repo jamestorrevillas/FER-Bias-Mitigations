@@ -1,0 +1,6 @@
+{
+    "gender_fairness": 0.9609738593439641,
+    "age_fairness": 0.841932015797748,
+    "emotion_fairness": 0.1456386292834891,
+    "overall_accuracy": 0.7046936114732725
+}
