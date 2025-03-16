@@ -60,7 +60,7 @@ REGULARIZATION_RATE = 0.01  # Same as original
 # Fine-tuning configuration
 BATCH_SIZE = 64  # Smaller than original for more frequent feedback
 VALIDATION_SPLIT = 0.15
-MAX_FINE_TUNING_EPOCHS = 1
+MAX_FINE_TUNING_EPOCHS = 1000
 
 # Learning rate settings
 INITIAL_LEARNING_RATE = 1e-4  # Lower than original for fine-tuning
