@@ -1,0 +1,26 @@
+FER+ MODEL ARCHITECTURE SUMMARY
+================================================================================
+
+Total parameters: 171,137
+
+Filter progression:
+  separable_conv2d_20: 48 filters
+  separable_conv2d_21: 48 filters
+  separable_conv2d_22: 48 filters
+  separable_conv2d_23: 96 filters
+  separable_conv2d_24: 96 filters
+  separable_conv2d_25: 96 filters
+  separable_conv2d_26: 192 filters
+  separable_conv2d_27: 192 filters
+  separable_conv2d_28: 384 filters
+  separable_conv2d_29: 8 filters
+
+Layer type distribution:
+  separable: 30
+  batch: 18
+
+Activation functions: LeakyReLU (with alpha=0.02 typically)
+Dropout type: SpatialDropout2D (with rate=0.1 typically)
+Final layer: GlobalAveragePooling followed by Softmax
+
+Output classes: 8 (inferred from final layer)

@@ -1,0 +1,570 @@
+(baseline-ferplus-model.h5) Baseline Ferplus Model H5 File Structure:
+================================================================================
+
+Group: model_weights
+
+Group: model_weights/batch_normalization_18
+
+Group: model_weights/batch_normalization_18/batch_normalization_18
+Dataset: model_weights/batch_normalization_18/batch_normalization_18/beta:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: model_weights/batch_normalization_18/batch_normalization_18/gamma:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: model_weights/batch_normalization_18/batch_normalization_18/moving_mean:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: model_weights/batch_normalization_18/batch_normalization_18/moving_variance:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: model_weights/batch_normalization_19
+
+Group: model_weights/batch_normalization_19/batch_normalization_19
+Dataset: model_weights/batch_normalization_19/batch_normalization_19/beta:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: model_weights/batch_normalization_19/batch_normalization_19/gamma:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: model_weights/batch_normalization_19/batch_normalization_19/moving_mean:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: model_weights/batch_normalization_19/batch_normalization_19/moving_variance:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: model_weights/batch_normalization_20
+
+Group: model_weights/batch_normalization_20/batch_normalization_20
+Dataset: model_weights/batch_normalization_20/batch_normalization_20/beta:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: model_weights/batch_normalization_20/batch_normalization_20/gamma:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: model_weights/batch_normalization_20/batch_normalization_20/moving_mean:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: model_weights/batch_normalization_20/batch_normalization_20/moving_variance:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: model_weights/batch_normalization_21
+
+Group: model_weights/batch_normalization_21/batch_normalization_21
+Dataset: model_weights/batch_normalization_21/batch_normalization_21/beta:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: model_weights/batch_normalization_21/batch_normalization_21/gamma:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: model_weights/batch_normalization_21/batch_normalization_21/moving_mean:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: model_weights/batch_normalization_21/batch_normalization_21/moving_variance:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+
+Group: model_weights/batch_normalization_22
+
+Group: model_weights/batch_normalization_22/batch_normalization_22
+Dataset: model_weights/batch_normalization_22/batch_normalization_22/beta:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: model_weights/batch_normalization_22/batch_normalization_22/gamma:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: model_weights/batch_normalization_22/batch_normalization_22/moving_mean:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: model_weights/batch_normalization_22/batch_normalization_22/moving_variance:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+
+Group: model_weights/batch_normalization_23
+
+Group: model_weights/batch_normalization_23/batch_normalization_23
+Dataset: model_weights/batch_normalization_23/batch_normalization_23/beta:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: model_weights/batch_normalization_23/batch_normalization_23/gamma:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: model_weights/batch_normalization_23/batch_normalization_23/moving_mean:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: model_weights/batch_normalization_23/batch_normalization_23/moving_variance:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+
+Group: model_weights/batch_normalization_24
+
+Group: model_weights/batch_normalization_24/batch_normalization_24
+Dataset: model_weights/batch_normalization_24/batch_normalization_24/beta:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: model_weights/batch_normalization_24/batch_normalization_24/gamma:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: model_weights/batch_normalization_24/batch_normalization_24/moving_mean:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: model_weights/batch_normalization_24/batch_normalization_24/moving_variance:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+
+Group: model_weights/batch_normalization_25
+
+Group: model_weights/batch_normalization_25/batch_normalization_25
+Dataset: model_weights/batch_normalization_25/batch_normalization_25/beta:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: model_weights/batch_normalization_25/batch_normalization_25/gamma:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: model_weights/batch_normalization_25/batch_normalization_25/moving_mean:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: model_weights/batch_normalization_25/batch_normalization_25/moving_variance:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+
+Group: model_weights/batch_normalization_26
+
+Group: model_weights/batch_normalization_26/batch_normalization_26
+Dataset: model_weights/batch_normalization_26/batch_normalization_26/beta:0 | Shape: (384,)               | Type: float32    | Params: 384        | Size: 1.50 KB
+Dataset: model_weights/batch_normalization_26/batch_normalization_26/gamma:0 | Shape: (384,)               | Type: float32    | Params: 384        | Size: 1.50 KB
+Dataset: model_weights/batch_normalization_26/batch_normalization_26/moving_mean:0 | Shape: (384,)               | Type: float32    | Params: 384        | Size: 1.50 KB
+Dataset: model_weights/batch_normalization_26/batch_normalization_26/moving_variance:0 | Shape: (384,)               | Type: float32    | Params: 384        | Size: 1.50 KB
+
+Group: model_weights/global_average_pooling2d_2
+
+Group: model_weights/leaky_re_lu_18
+
+Group: model_weights/leaky_re_lu_19
+
+Group: model_weights/leaky_re_lu_20
+
+Group: model_weights/leaky_re_lu_21
+
+Group: model_weights/leaky_re_lu_22
+
+Group: model_weights/leaky_re_lu_23
+
+Group: model_weights/leaky_re_lu_24
+
+Group: model_weights/leaky_re_lu_25
+
+Group: model_weights/leaky_re_lu_26
+
+Group: model_weights/max_pooling2d_10
+
+Group: model_weights/max_pooling2d_11
+
+Group: model_weights/max_pooling2d_8
+
+Group: model_weights/max_pooling2d_9
+
+Group: model_weights/separable_conv2d_20
+
+Group: model_weights/separable_conv2d_20/separable_conv2d_20
+Dataset: model_weights/separable_conv2d_20/separable_conv2d_20/bias:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: model_weights/separable_conv2d_20/separable_conv2d_20/depthwise_kernel:0 | Shape: (3, 3, 1, 1)         | Type: float32    | Params: 9          | Size: 0.04 KB
+Dataset: model_weights/separable_conv2d_20/separable_conv2d_20/pointwise_kernel:0 | Shape: (1, 1, 1, 48)        | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: model_weights/separable_conv2d_21
+
+Group: model_weights/separable_conv2d_21/separable_conv2d_21
+Dataset: model_weights/separable_conv2d_21/separable_conv2d_21/bias:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: model_weights/separable_conv2d_21/separable_conv2d_21/depthwise_kernel:0 | Shape: (3, 3, 48, 1)        | Type: float32    | Params: 432        | Size: 1.69 KB
+Dataset: model_weights/separable_conv2d_21/separable_conv2d_21/pointwise_kernel:0 | Shape: (1, 1, 48, 48)       | Type: float32    | Params: 2,304      | Size: 9.00 KB
+
+Group: model_weights/separable_conv2d_22
+
+Group: model_weights/separable_conv2d_22/separable_conv2d_22
+Dataset: model_weights/separable_conv2d_22/separable_conv2d_22/bias:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: model_weights/separable_conv2d_22/separable_conv2d_22/depthwise_kernel:0 | Shape: (3, 3, 48, 1)        | Type: float32    | Params: 432        | Size: 1.69 KB
+Dataset: model_weights/separable_conv2d_22/separable_conv2d_22/pointwise_kernel:0 | Shape: (1, 1, 48, 48)       | Type: float32    | Params: 2,304      | Size: 9.00 KB
+
+Group: model_weights/separable_conv2d_23
+
+Group: model_weights/separable_conv2d_23/separable_conv2d_23
+Dataset: model_weights/separable_conv2d_23/separable_conv2d_23/bias:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: model_weights/separable_conv2d_23/separable_conv2d_23/depthwise_kernel:0 | Shape: (3, 3, 48, 1)        | Type: float32    | Params: 432        | Size: 1.69 KB
+Dataset: model_weights/separable_conv2d_23/separable_conv2d_23/pointwise_kernel:0 | Shape: (1, 1, 48, 96)       | Type: float32    | Params: 4,608      | Size: 18.00 KB
+
+Group: model_weights/separable_conv2d_24
+
+Group: model_weights/separable_conv2d_24/separable_conv2d_24
+Dataset: model_weights/separable_conv2d_24/separable_conv2d_24/bias:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: model_weights/separable_conv2d_24/separable_conv2d_24/depthwise_kernel:0 | Shape: (3, 3, 96, 1)        | Type: float32    | Params: 864        | Size: 3.38 KB
+Dataset: model_weights/separable_conv2d_24/separable_conv2d_24/pointwise_kernel:0 | Shape: (1, 1, 96, 96)       | Type: float32    | Params: 9,216      | Size: 36.00 KB
+
+Group: model_weights/separable_conv2d_25
+
+Group: model_weights/separable_conv2d_25/separable_conv2d_25
+Dataset: model_weights/separable_conv2d_25/separable_conv2d_25/bias:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: model_weights/separable_conv2d_25/separable_conv2d_25/depthwise_kernel:0 | Shape: (3, 3, 96, 1)        | Type: float32    | Params: 864        | Size: 3.38 KB
+Dataset: model_weights/separable_conv2d_25/separable_conv2d_25/pointwise_kernel:0 | Shape: (1, 1, 96, 96)       | Type: float32    | Params: 9,216      | Size: 36.00 KB
+
+Group: model_weights/separable_conv2d_26
+
+Group: model_weights/separable_conv2d_26/separable_conv2d_26
+Dataset: model_weights/separable_conv2d_26/separable_conv2d_26/bias:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: model_weights/separable_conv2d_26/separable_conv2d_26/depthwise_kernel:0 | Shape: (3, 3, 96, 1)        | Type: float32    | Params: 864        | Size: 3.38 KB
+Dataset: model_weights/separable_conv2d_26/separable_conv2d_26/pointwise_kernel:0 | Shape: (1, 1, 96, 192)      | Type: float32    | Params: 18,432     | Size: 72.00 KB
+
+Group: model_weights/separable_conv2d_27
+
+Group: model_weights/separable_conv2d_27/separable_conv2d_27
+Dataset: model_weights/separable_conv2d_27/separable_conv2d_27/bias:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: model_weights/separable_conv2d_27/separable_conv2d_27/depthwise_kernel:0 | Shape: (3, 3, 192, 1)       | Type: float32    | Params: 1,728      | Size: 6.75 KB
+Dataset: model_weights/separable_conv2d_27/separable_conv2d_27/pointwise_kernel:0 | Shape: (1, 1, 192, 192)     | Type: float32    | Params: 36,864     | Size: 144.00 KB
+
+Group: model_weights/separable_conv2d_28
+
+Group: model_weights/separable_conv2d_28/separable_conv2d_28
+Dataset: model_weights/separable_conv2d_28/separable_conv2d_28/bias:0 | Shape: (384,)               | Type: float32    | Params: 384        | Size: 1.50 KB
+Dataset: model_weights/separable_conv2d_28/separable_conv2d_28/depthwise_kernel:0 | Shape: (3, 3, 192, 1)       | Type: float32    | Params: 1,728      | Size: 6.75 KB
+Dataset: model_weights/separable_conv2d_28/separable_conv2d_28/pointwise_kernel:0 | Shape: (1, 1, 192, 384)     | Type: float32    | Params: 73,728     | Size: 288.00 KB
+
+Group: model_weights/separable_conv2d_29
+
+Group: model_weights/separable_conv2d_29/separable_conv2d_29
+Dataset: model_weights/separable_conv2d_29/separable_conv2d_29/bias:0 | Shape: (8,)                 | Type: float32    | Params: 8          | Size: 0.03 KB
+Dataset: model_weights/separable_conv2d_29/separable_conv2d_29/depthwise_kernel:0 | Shape: (1, 1, 384, 1)       | Type: float32    | Params: 384        | Size: 1.50 KB
+Dataset: model_weights/separable_conv2d_29/separable_conv2d_29/pointwise_kernel:0 | Shape: (1, 1, 384, 8)       | Type: float32    | Params: 3,072      | Size: 12.00 KB
+
+Group: model_weights/spatial_dropout2d_10
+
+Group: model_weights/spatial_dropout2d_11
+
+Group: model_weights/spatial_dropout2d_8
+
+Group: model_weights/spatial_dropout2d_9
+
+Group: optimizer_weights
+
+Group: optimizer_weights/Adam
+
+Group: optimizer_weights/Adam/batch_normalization_18
+
+Group: optimizer_weights/Adam/batch_normalization_18/beta
+Dataset: optimizer_weights/Adam/batch_normalization_18/beta/m:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: optimizer_weights/Adam/batch_normalization_18/beta/v:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: optimizer_weights/Adam/batch_normalization_18/gamma
+Dataset: optimizer_weights/Adam/batch_normalization_18/gamma/m:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: optimizer_weights/Adam/batch_normalization_18/gamma/v:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: optimizer_weights/Adam/batch_normalization_19
+
+Group: optimizer_weights/Adam/batch_normalization_19/beta
+Dataset: optimizer_weights/Adam/batch_normalization_19/beta/m:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: optimizer_weights/Adam/batch_normalization_19/beta/v:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: optimizer_weights/Adam/batch_normalization_19/gamma
+Dataset: optimizer_weights/Adam/batch_normalization_19/gamma/m:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: optimizer_weights/Adam/batch_normalization_19/gamma/v:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: optimizer_weights/Adam/batch_normalization_20
+
+Group: optimizer_weights/Adam/batch_normalization_20/beta
+Dataset: optimizer_weights/Adam/batch_normalization_20/beta/m:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: optimizer_weights/Adam/batch_normalization_20/beta/v:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: optimizer_weights/Adam/batch_normalization_20/gamma
+Dataset: optimizer_weights/Adam/batch_normalization_20/gamma/m:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: optimizer_weights/Adam/batch_normalization_20/gamma/v:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: optimizer_weights/Adam/batch_normalization_21
+
+Group: optimizer_weights/Adam/batch_normalization_21/beta
+Dataset: optimizer_weights/Adam/batch_normalization_21/beta/m:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: optimizer_weights/Adam/batch_normalization_21/beta/v:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+
+Group: optimizer_weights/Adam/batch_normalization_21/gamma
+Dataset: optimizer_weights/Adam/batch_normalization_21/gamma/m:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: optimizer_weights/Adam/batch_normalization_21/gamma/v:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+
+Group: optimizer_weights/Adam/batch_normalization_22
+
+Group: optimizer_weights/Adam/batch_normalization_22/beta
+Dataset: optimizer_weights/Adam/batch_normalization_22/beta/m:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: optimizer_weights/Adam/batch_normalization_22/beta/v:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+
+Group: optimizer_weights/Adam/batch_normalization_22/gamma
+Dataset: optimizer_weights/Adam/batch_normalization_22/gamma/m:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: optimizer_weights/Adam/batch_normalization_22/gamma/v:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+
+Group: optimizer_weights/Adam/batch_normalization_23
+
+Group: optimizer_weights/Adam/batch_normalization_23/beta
+Dataset: optimizer_weights/Adam/batch_normalization_23/beta/m:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: optimizer_weights/Adam/batch_normalization_23/beta/v:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+
+Group: optimizer_weights/Adam/batch_normalization_23/gamma
+Dataset: optimizer_weights/Adam/batch_normalization_23/gamma/m:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: optimizer_weights/Adam/batch_normalization_23/gamma/v:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+
+Group: optimizer_weights/Adam/batch_normalization_24
+
+Group: optimizer_weights/Adam/batch_normalization_24/beta
+Dataset: optimizer_weights/Adam/batch_normalization_24/beta/m:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: optimizer_weights/Adam/batch_normalization_24/beta/v:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+
+Group: optimizer_weights/Adam/batch_normalization_24/gamma
+Dataset: optimizer_weights/Adam/batch_normalization_24/gamma/m:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: optimizer_weights/Adam/batch_normalization_24/gamma/v:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+
+Group: optimizer_weights/Adam/batch_normalization_25
+
+Group: optimizer_weights/Adam/batch_normalization_25/beta
+Dataset: optimizer_weights/Adam/batch_normalization_25/beta/m:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: optimizer_weights/Adam/batch_normalization_25/beta/v:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+
+Group: optimizer_weights/Adam/batch_normalization_25/gamma
+Dataset: optimizer_weights/Adam/batch_normalization_25/gamma/m:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: optimizer_weights/Adam/batch_normalization_25/gamma/v:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+
+Group: optimizer_weights/Adam/batch_normalization_26
+
+Group: optimizer_weights/Adam/batch_normalization_26/beta
+Dataset: optimizer_weights/Adam/batch_normalization_26/beta/m:0 | Shape: (384,)               | Type: float32    | Params: 384        | Size: 1.50 KB
+Dataset: optimizer_weights/Adam/batch_normalization_26/beta/v:0 | Shape: (384,)               | Type: float32    | Params: 384        | Size: 1.50 KB
+
+Group: optimizer_weights/Adam/batch_normalization_26/gamma
+Dataset: optimizer_weights/Adam/batch_normalization_26/gamma/m:0 | Shape: (384,)               | Type: float32    | Params: 384        | Size: 1.50 KB
+Dataset: optimizer_weights/Adam/batch_normalization_26/gamma/v:0 | Shape: (384,)               | Type: float32    | Params: 384        | Size: 1.50 KB
+Dataset: optimizer_weights/Adam/iter:0                      | Shape: ()                   | Type: int64      | Params: 0          | Size: 0.01 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_20
+
+Group: optimizer_weights/Adam/separable_conv2d_20/bias
+Dataset: optimizer_weights/Adam/separable_conv2d_20/bias/m:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_20/bias/v:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_20/depthwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_20/depthwise_kernel/m:0 | Shape: (3, 3, 1, 1)         | Type: float32    | Params: 9          | Size: 0.04 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_20/depthwise_kernel/v:0 | Shape: (3, 3, 1, 1)         | Type: float32    | Params: 9          | Size: 0.04 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_20/pointwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_20/pointwise_kernel/m:0 | Shape: (1, 1, 1, 48)        | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_20/pointwise_kernel/v:0 | Shape: (1, 1, 1, 48)        | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_21
+
+Group: optimizer_weights/Adam/separable_conv2d_21/bias
+Dataset: optimizer_weights/Adam/separable_conv2d_21/bias/m:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_21/bias/v:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_21/depthwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_21/depthwise_kernel/m:0 | Shape: (3, 3, 48, 1)        | Type: float32    | Params: 432        | Size: 1.69 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_21/depthwise_kernel/v:0 | Shape: (3, 3, 48, 1)        | Type: float32    | Params: 432        | Size: 1.69 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_21/pointwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_21/pointwise_kernel/m:0 | Shape: (1, 1, 48, 48)       | Type: float32    | Params: 2,304      | Size: 9.00 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_21/pointwise_kernel/v:0 | Shape: (1, 1, 48, 48)       | Type: float32    | Params: 2,304      | Size: 9.00 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_22
+
+Group: optimizer_weights/Adam/separable_conv2d_22/bias
+Dataset: optimizer_weights/Adam/separable_conv2d_22/bias/m:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_22/bias/v:0 | Shape: (48,)                | Type: float32    | Params: 48         | Size: 0.19 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_22/depthwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_22/depthwise_kernel/m:0 | Shape: (3, 3, 48, 1)        | Type: float32    | Params: 432        | Size: 1.69 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_22/depthwise_kernel/v:0 | Shape: (3, 3, 48, 1)        | Type: float32    | Params: 432        | Size: 1.69 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_22/pointwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_22/pointwise_kernel/m:0 | Shape: (1, 1, 48, 48)       | Type: float32    | Params: 2,304      | Size: 9.00 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_22/pointwise_kernel/v:0 | Shape: (1, 1, 48, 48)       | Type: float32    | Params: 2,304      | Size: 9.00 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_23
+
+Group: optimizer_weights/Adam/separable_conv2d_23/bias
+Dataset: optimizer_weights/Adam/separable_conv2d_23/bias/m:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_23/bias/v:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_23/depthwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_23/depthwise_kernel/m:0 | Shape: (3, 3, 48, 1)        | Type: float32    | Params: 432        | Size: 1.69 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_23/depthwise_kernel/v:0 | Shape: (3, 3, 48, 1)        | Type: float32    | Params: 432        | Size: 1.69 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_23/pointwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_23/pointwise_kernel/m:0 | Shape: (1, 1, 48, 96)       | Type: float32    | Params: 4,608      | Size: 18.00 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_23/pointwise_kernel/v:0 | Shape: (1, 1, 48, 96)       | Type: float32    | Params: 4,608      | Size: 18.00 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_24
+
+Group: optimizer_weights/Adam/separable_conv2d_24/bias
+Dataset: optimizer_weights/Adam/separable_conv2d_24/bias/m:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_24/bias/v:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_24/depthwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_24/depthwise_kernel/m:0 | Shape: (3, 3, 96, 1)        | Type: float32    | Params: 864        | Size: 3.38 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_24/depthwise_kernel/v:0 | Shape: (3, 3, 96, 1)        | Type: float32    | Params: 864        | Size: 3.38 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_24/pointwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_24/pointwise_kernel/m:0 | Shape: (1, 1, 96, 96)       | Type: float32    | Params: 9,216      | Size: 36.00 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_24/pointwise_kernel/v:0 | Shape: (1, 1, 96, 96)       | Type: float32    | Params: 9,216      | Size: 36.00 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_25
+
+Group: optimizer_weights/Adam/separable_conv2d_25/bias
+Dataset: optimizer_weights/Adam/separable_conv2d_25/bias/m:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_25/bias/v:0 | Shape: (96,)                | Type: float32    | Params: 96         | Size: 0.38 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_25/depthwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_25/depthwise_kernel/m:0 | Shape: (3, 3, 96, 1)        | Type: float32    | Params: 864        | Size: 3.38 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_25/depthwise_kernel/v:0 | Shape: (3, 3, 96, 1)        | Type: float32    | Params: 864        | Size: 3.38 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_25/pointwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_25/pointwise_kernel/m:0 | Shape: (1, 1, 96, 96)       | Type: float32    | Params: 9,216      | Size: 36.00 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_25/pointwise_kernel/v:0 | Shape: (1, 1, 96, 96)       | Type: float32    | Params: 9,216      | Size: 36.00 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_26
+
+Group: optimizer_weights/Adam/separable_conv2d_26/bias
+Dataset: optimizer_weights/Adam/separable_conv2d_26/bias/m:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_26/bias/v:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_26/depthwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_26/depthwise_kernel/m:0 | Shape: (3, 3, 96, 1)        | Type: float32    | Params: 864        | Size: 3.38 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_26/depthwise_kernel/v:0 | Shape: (3, 3, 96, 1)        | Type: float32    | Params: 864        | Size: 3.38 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_26/pointwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_26/pointwise_kernel/m:0 | Shape: (1, 1, 96, 192)      | Type: float32    | Params: 18,432     | Size: 72.00 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_26/pointwise_kernel/v:0 | Shape: (1, 1, 96, 192)      | Type: float32    | Params: 18,432     | Size: 72.00 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_27
+
+Group: optimizer_weights/Adam/separable_conv2d_27/bias
+Dataset: optimizer_weights/Adam/separable_conv2d_27/bias/m:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_27/bias/v:0 | Shape: (192,)               | Type: float32    | Params: 192        | Size: 0.75 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_27/depthwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_27/depthwise_kernel/m:0 | Shape: (3, 3, 192, 1)       | Type: float32    | Params: 1,728      | Size: 6.75 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_27/depthwise_kernel/v:0 | Shape: (3, 3, 192, 1)       | Type: float32    | Params: 1,728      | Size: 6.75 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_27/pointwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_27/pointwise_kernel/m:0 | Shape: (1, 1, 192, 192)     | Type: float32    | Params: 36,864     | Size: 144.00 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_27/pointwise_kernel/v:0 | Shape: (1, 1, 192, 192)     | Type: float32    | Params: 36,864     | Size: 144.00 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_28
+
+Group: optimizer_weights/Adam/separable_conv2d_28/bias
+Dataset: optimizer_weights/Adam/separable_conv2d_28/bias/m:0 | Shape: (384,)               | Type: float32    | Params: 384        | Size: 1.50 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_28/bias/v:0 | Shape: (384,)               | Type: float32    | Params: 384        | Size: 1.50 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_28/depthwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_28/depthwise_kernel/m:0 | Shape: (3, 3, 192, 1)       | Type: float32    | Params: 1,728      | Size: 6.75 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_28/depthwise_kernel/v:0 | Shape: (3, 3, 192, 1)       | Type: float32    | Params: 1,728      | Size: 6.75 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_28/pointwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_28/pointwise_kernel/m:0 | Shape: (1, 1, 192, 384)     | Type: float32    | Params: 73,728     | Size: 288.00 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_28/pointwise_kernel/v:0 | Shape: (1, 1, 192, 384)     | Type: float32    | Params: 73,728     | Size: 288.00 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_29
+
+Group: optimizer_weights/Adam/separable_conv2d_29/bias
+Dataset: optimizer_weights/Adam/separable_conv2d_29/bias/m:0 | Shape: (8,)                 | Type: float32    | Params: 8          | Size: 0.03 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_29/bias/v:0 | Shape: (8,)                 | Type: float32    | Params: 8          | Size: 0.03 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_29/depthwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_29/depthwise_kernel/m:0 | Shape: (1, 1, 384, 1)       | Type: float32    | Params: 384        | Size: 1.50 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_29/depthwise_kernel/v:0 | Shape: (1, 1, 384, 1)       | Type: float32    | Params: 384        | Size: 1.50 KB
+
+Group: optimizer_weights/Adam/separable_conv2d_29/pointwise_kernel
+Dataset: optimizer_weights/Adam/separable_conv2d_29/pointwise_kernel/m:0 | Shape: (1, 1, 384, 8)       | Type: float32    | Params: 3,072      | Size: 12.00 KB
+Dataset: optimizer_weights/Adam/separable_conv2d_29/pointwise_kernel/v:0 | Shape: (1, 1, 384, 8)       | Type: float32    | Params: 3,072      | Size: 12.00 KB
+
+================================================================================
+Total trainable parameters: 171,137
+
+Layer Type Distribution:
+  separable: 30
+  batch: 18
+
+Inferred Model Architecture:
+================================================================================
+
+Convolutional Layers:
+  Adam: (3, 3, 1, 1)
+  separable_conv2d_20: (3, 3, 1, 1)
+  separable_conv2d_21: (3, 3, 48, 1)
+  separable_conv2d_22: (3, 3, 48, 1)
+  separable_conv2d_23: (3, 3, 48, 1)
+  separable_conv2d_24: (3, 3, 96, 1)
+  separable_conv2d_25: (3, 3, 96, 1)
+  separable_conv2d_26: (3, 3, 96, 1)
+  separable_conv2d_27: (3, 3, 192, 1)
+  separable_conv2d_28: (3, 3, 192, 1)
+  separable_conv2d_29: (1, 1, 384, 1)
+
+Batch Normalization Layers:
+  Adam: (48,)
+  batch_normalization_18: (48,)
+  batch_normalization_19: (48,)
+  batch_normalization_20: (48,)
+  batch_normalization_21: (96,)
+  batch_normalization_22: (96,)
+  batch_normalization_23: (96,)
+  batch_normalization_24: (192,)
+  batch_normalization_25: (192,)
+  batch_normalization_26: (384,)
+
+Model Configuration Found
+Saved model configuration to 'architecture_analysis/model_config.json'
+
+Found 38 layers in model config
+Saved layer configuration to 'architecture_analysis/layer_config.csv'
+
+Detailed Layer Type Distribution:
+  SeparableConv2D: 10
+  BatchNormalization: 9
+  LeakyReLU: 9
+  MaxPooling2D: 4
+  SpatialDropout2D: 4
+  InputLayer: 1
+  GlobalAveragePooling2D: 1
+
+Optimizer Information:
+  Optimizer type: Adam
+
+Inferred Model Architecture Based on Weights:
+================================================================================
+
+Filter progression through the network:
+  separable_conv2d_20: 48 filters
+  separable_conv2d_21: 48 filters
+  separable_conv2d_22: 48 filters
+  separable_conv2d_23: 96 filters
+  separable_conv2d_24: 96 filters
+  separable_conv2d_25: 96 filters
+  separable_conv2d_26: 192 filters
+  separable_conv2d_27: 192 filters
+  separable_conv2d_28: 384 filters
+  separable_conv2d_29: 8 filters
+
+Activation layers:
+  leaky_re_lu_18
+  leaky_re_lu_19
+  leaky_re_lu_20
+  leaky_re_lu_21
+  leaky_re_lu_22
+  leaky_re_lu_23
+  leaky_re_lu_24
+  leaky_re_lu_25
+  leaky_re_lu_26
+
+Pooling layers:
+  global_average_pooling2d_2
+  max_pooling2d_10
+  max_pooling2d_11
+  max_pooling2d_8
+  max_pooling2d_9
+
+Dropout layers:
+  spatial_dropout2d_10
+    Inferred dropout rate: 0.1 (based on typical use in this architecture)
+  spatial_dropout2d_11
+    Inferred dropout rate: 0.1 (based on typical use in this architecture)
+  spatial_dropout2d_8
+    Inferred dropout rate: 0.1 (based on typical use in this architecture)
+  spatial_dropout2d_9
+    Inferred dropout rate: 0.1 (based on typical use in this architecture)
+
+Architecture Summary Based on Weights Analysis:
+================================================================================
+Input shape: (48, 48, 1) (inferred from first conv layer)
+
+Layer sequence inferred from weights:
+
+Final Architecture Sequence:
+
+batch layers:
+  batch_normalization_18
+  batch_normalization_19
+  batch_normalization_20
+  batch_normalization_21
+  batch_normalization_22
+  batch_normalization_23
+  batch_normalization_24
+  batch_normalization_25
+  batch_normalization_26
+
+global layers:
+  global_average_pooling2d_2
+
+leaky layers:
+  leaky_re_lu_18
+  leaky_re_lu_19
+  leaky_re_lu_20
+  leaky_re_lu_21
+  leaky_re_lu_22
+  leaky_re_lu_23
+  leaky_re_lu_24
+  leaky_re_lu_25
+  leaky_re_lu_26
+
+max layers:
+  max_pooling2d_10
+  max_pooling2d_11
+  max_pooling2d_8
+  max_pooling2d_9
+
+separable layers:
+  separable_conv2d_20
+  separable_conv2d_21
+  separable_conv2d_22
+  separable_conv2d_23
+  separable_conv2d_24
+  separable_conv2d_25
+  separable_conv2d_26
+  separable_conv2d_27
+  separable_conv2d_28
+  separable_conv2d_29
+
+spatial layers:
+  spatial_dropout2d_10
+  spatial_dropout2d_11
+  spatial_dropout2d_8
+  spatial_dropout2d_9

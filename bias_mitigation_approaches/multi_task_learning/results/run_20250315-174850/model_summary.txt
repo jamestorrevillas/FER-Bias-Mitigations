@@ -1,0 +1,42 @@
+Model: "multi_task_model"
+__________________________________________________________________________________________________
+ Layer (type)                Output Shape                 Param #   Connected to                  
+==================================================================================================
+ input_1 (InputLayer)        [(None, 48, 48, 1)]          0         []                            
+                                                                                                  
+ model (Functional)          (None, 8)                    173537    ['input_1[0][0]']             
+                                                                                                  
+ feature_expansion (Dense)   (None, 64)                   576       ['model[0][0]']               
+                                                                                                  
+ batch_normalization (Batch  (None, 64)                   256       ['feature_expansion[0][0]']   
+ Normalization)                                                                                   
+                                                                                                  
+ shared_representation (Den  (None, 128)                  8320      ['batch_normalization[0][0]'] 
+ se)                                                                                              
+                                                                                                  
+ dropout (Dropout)           (None, 128)                  0         ['shared_representation[0][0]'
+                                                                    ]                             
+                                                                                                  
+ emotion_features (Dense)    (None, 64)                   8256      ['dropout[0][0]']             
+                                                                                                  
+ gender_features (Dense)     (None, 32)                   4128      ['dropout[0][0]']             
+                                                                                                  
+ age_features (Dense)        (None, 48)                   6192      ['dropout[0][0]']             
+                                                                                                  
+ dropout_1 (Dropout)         (None, 64)                   0         ['emotion_features[0][0]']    
+                                                                                                  
+ dropout_2 (Dropout)         (None, 32)                   0         ['gender_features[0][0]']     
+                                                                                                  
+ dropout_3 (Dropout)         (None, 48)                   0         ['age_features[0][0]']        
+                                                                                                  
+ emotion_output (Dense)      (None, 8)                    520       ['dropout_1[0][0]']           
+                                                                                                  
+ gender_output (Dense)       (None, 2)                    66        ['dropout_2[0][0]']           
+                                                                                                  
+ age_output (Dense)          (None, 5)                    245       ['dropout_3[0][0]']           
+                                                                                                  
+==================================================================================================
+Total params: 202096 (789.44 KB)
+Trainable params: 199568 (779.56 KB)
+Non-trainable params: 2528 (9.88 KB)
+__________________________________________________________________________________________________

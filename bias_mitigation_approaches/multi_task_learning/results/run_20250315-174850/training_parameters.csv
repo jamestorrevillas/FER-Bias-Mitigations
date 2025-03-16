@@ -1,0 +1,14 @@
+Parameter,Value
+Initial Learning Rate Phase 1,0.0005
+Initial Learning Rate Phase 2,5e-06
+Batch Size,64.0
+Gradient Clip Norm,1.0
+Emotion Loss Weight,1.0
+Gender Loss Weight,0.5
+Age Loss Weight,0.5
+Max Epochs,1.0
+Phase 1 Epochs,20.0
+Warmup Epochs Phase 1,5.0
+Warmup Epochs Phase 2,3.0
+Regularization Rate,0.015
+Dropout Rate,0.2
